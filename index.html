@@ -205,6 +205,26 @@ footer a{color:#A7BED1;display:block;margin-bottom:12px;}
 .ms-back.hide{display:none;}
 .ms-card .form-stats{border:none;border-top:1px solid var(--line);border-radius:0;margin:0;}
 .ms-card select{-webkit-appearance:none;appearance:none;padding-right:44px;cursor:pointer;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='12'%20height='8'%20viewBox='0%200%2012%208'%3E%3Cpath%20d='M1%201l5%205%205-5'%20stroke='%236E7A8A'%20stroke-width='2'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:12px 8px;}
+/* ---- multistep input steps + contact extras (additive) ---- */
+.ms-input{margin-bottom:4px;}
+.ms-input-el{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:15px;font-family:inherit;color:var(--text);box-shadow:0 1px 2px rgba(11,53,88,.05);}
+.ms-input-el:focus{outline:none;border-color:var(--cta);box-shadow:0 0 0 3px rgba(198,161,91,.18);}
+textarea.ms-input-el{resize:vertical;min-height:96px;line-height:1.5;}
+.ms-actions{display:flex;align-items:center;gap:14px;margin-top:14px;}
+.ms-continue{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border:none;border-radius:12px;background:var(--cta);color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s ease;box-shadow:0 4px 12px rgba(198,161,91,.25);}
+.ms-continue:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(198,161,91,.32);}
+.ms-skip{background:none;border:none;color:var(--muted);font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:underline;}
+.ms-skip:hover{color:var(--navy);}
+.ms-extra{margin-top:16px;}
+.ms-extra-label{font-size:13px;font-weight:700;color:var(--navy-dark);margin-bottom:8px;}
+.ms-radios{display:flex;gap:9px;flex-wrap:wrap;}
+.ms-radio{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;transition:.15s ease;}
+.ms-radio:hover{border-color:var(--cta);}
+.ms-radio>input{accent-color:var(--cta);cursor:pointer;}
+.ms-terms{display:flex;gap:9px;align-items:flex-start;margin-top:14px;text-align:left;cursor:pointer;}
+.ms-terms>input{margin-top:3px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--cta);cursor:pointer;}
+.ms-terms>span{font-size:12px;line-height:1.5;color:#5E6B78;}
+.ms-terms a{color:var(--cta);}
 /* ---- shared SMS opt-in / consent block (lib/consent.mjs) ---- */
 .pm-consent{display:flex;gap:9px;align-items:flex-start;margin:12px 0 0;text-align:left;cursor:pointer;}
 .pm-consent>input{margin-top:3px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--cta);cursor:pointer;}
@@ -247,9 +267,9 @@ Dispute in Idaho?<br>
 </div>
 
 <div class="ms-card" id="form">
-<div class="ms-head"><h3 id="msHead">Free Idaho Business Litigation Case Review</h3><p id="msSub">3 quick questions. About 60 seconds. Free and confidential.</p></div>
+<div class="ms-head"><h3 id="msHead">Free Idaho Business Litigation Case Review</h3><p id="msSub">A few quick questions so an Idaho attorney can review your case. Free &amp; confidential.</p></div>
 <div class="ms-progress">
-  <div class="ms-progress-meta"><span id="msStepLabel">Step 1 of 4</span><span id="msHint">Quick &amp; easy</span></div>
+  <div class="ms-progress-meta"><span id="msStepLabel">Step 1 of 15</span><span id="msHint">Quick &amp; easy</span></div>
   <div class="ms-track"><div class="ms-bar" id="msBar"></div></div>
 </div>
 <form action="https://procure-lead-engine.dan-fda.workers.dev/submit" method="POST" id="msForm">
@@ -260,8 +280,13 @@ Dispute in Idaho?<br>
   <input type="hidden" name="pm_sid" id="pm_sid" value="" />
   <input type="hidden" name="variant" value="multistep" />
   <input type="hidden" name="matter_type" id="f_matter_type" value="" />
-  <input type="hidden" name="dispute_value" id="f_dispute_value" value="" />
+  <input type="hidden" name="urgency" id="f_urgency" value="" />
   <input type="hidden" name="case_stage" id="f_case_stage" value="" />
+  <input type="hidden" name="timeline" id="f_timeline" value="" />
+  <input type="hidden" name="dispute_value" id="f_dispute_value" value="" />
+  <input type="hidden" name="location" id="f_location" value="" />
+  <input type="hidden" name="prior_attorney" id="f_prior_attorney" value="" />
+  <input type="hidden" name="retainer_ready" id="f_retainer_ready" value="" />
   <div class="ms-body">
     <div class="ms-step active" data-step="1">
       <div class="ms-q">What kind of business dispute are you facing?</div>
@@ -269,17 +294,12 @@ Dispute in Idaho?<br>
       <div class="ms-choices" data-target="matter_type"></div>
     </div>
     <div class="ms-step" data-step="2">
-      <div class="ms-q">Roughly how much is at stake?</div>
-      <div class="ms-help">A rough range is fine — it helps match the right attorney.</div>
-      <div class="ms-choices" data-target="dispute_value"></div>
+      <div class="ms-q">How urgent is this?</div>
+      <div class="ms-help">So we know how fast to reach out.</div>
+      <div class="ms-choices" data-target="urgency"></div>
     </div>
-    <div class="ms-step" data-step="3">
-      <div class="ms-q">Where are things right now?</div>
-      <div class="ms-help">This helps us flag anything time-sensitive.</div>
-      <div class="ms-choices" data-target="case_stage"></div>
-    </div>
-    <div class="ms-step" data-step="4">
-      <div class="ms-q" id="msContactQ">Last step — where should your Idaho attorney reach you?</div>
+    <div class="ms-step" data-step="3" data-contact="1">
+      <div class="ms-q" id="msContactQ">Where should your Idaho attorney reach you?</div>
       <p class="ms-reassure" id="msReassure">Tell us how to reach you and an Idaho business litigation attorney will review your situation — free, confidential, no obligation.</p>
       <div class="ms-fields">
         <div class="full"><input type="text" name="name" placeholder="Your Name" autocomplete="name" required></div>
@@ -287,13 +307,101 @@ Dispute in Idaho?<br>
         <div><input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" pattern="[\d\s\-\(\)\.]{10,20}" required></div>
         <div class="full"><input type="text" name="company" placeholder="Business Name" required></div>
       </div>
+      <div class="ms-extra">
+        <div class="ms-extra-label">Preferred contact method</div>
+        <div class="ms-radios"><label class="ms-radio"><input type="radio" name="preferred_contact" value="Phone"><span>Phone</span></label><label class="ms-radio"><input type="radio" name="preferred_contact" value="Email"><span>Email</span></label><label class="ms-radio"><input type="radio" name="preferred_contact" value="Text"><span>Text</span></label></div>
+      </div>
+      <label class="ms-terms"><input type="checkbox" name="terms_agree" value="yes" required><span>I agree to the <a href="/terms.html">Terms</a> and <a href="/privacy-policy.html">Privacy Policy</a>, and understand that submitting this form does not create an attorney-client relationship.</span></label>
       <label class="pm-consent"><input type="checkbox" name="sms_consent" value="yes"><span>Yes, text me about my case review. By checking this box, I agree to receive SMS text messages about my request and scheduling from Idaho Business Litigation (Procure Media, LLC) at the phone number I provided, including messages sent using automated technology. Msg &amp; data rates may apply. Message frequency varies.</span></label>
       <div class="cf-turnstile" data-sitekey="" data-size="flexible" style="margin:14px 0 4px"></div>
       <script>(function(){var d=document.currentScript.previousElementSibling,k=d&&d.getAttribute('data-sitekey');if(k&&k.indexOf('{{')<0&&k.length>5){var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=s.defer=true;document.head.appendChild(s);}else if(d){d.style.display='none';}})();</script>
-      <button class="btn btn-primary ms-submit" type="submit">Start My Free Case Review →</button>
+      <button class="btn btn-primary ms-submit" type="submit">Save &amp; Continue →</button>
       <p class="pm-consent-submit">By submitting, you agree to be contacted about your request by Idaho Business Litigation (Procure Media, LLC) and a participating attorney by phone and email, including via automated technology. Consent is not a condition of any service, and submitting does not create an attorney-client relationship.</p>
       <p class="pm-consent-terms">SMS terms: If you check the box above, message frequency varies and Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. SMS consent is not a condition of any service. See our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/terms.html">Terms</a>.</p>
       <input type="hidden" name="consent_version" value="idahobl-sms-v1-2026-07-07">
+    </div>
+    <div class="ms-step" data-step="4" data-input="1">
+      <div class="ms-q">Tell us what's going on.</div>
+      <div class="ms-help">A few sentences about the dispute — what happened and what you're hoping to resolve.</div>
+      <div class="ms-input"><textarea name="matter_detail" id="i_matter_detail" class="ms-input-el" rows="4" placeholder="Briefly describe your dispute…" maxlength="1200"></textarea></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
+    </div>
+    <div class="ms-step" data-step="5" data-input="1">
+      <div class="ms-q">Who's on the other side?</div>
+      <div class="ms-help">The person, business, or party you're in a dispute with.</div>
+      <div class="ms-input"><input type="text" name="opposing_party" id="i_opposing_party" class="ms-input-el" placeholder="e.g. a vendor, partner, client, or company" maxlength="160" autocomplete="off"></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
+    </div>
+    <div class="ms-step" data-step="6">
+      <div class="ms-q">Where are things right now?</div>
+      <div class="ms-help">This helps us flag anything time-sensitive.</div>
+      <div class="ms-choices" data-target="case_stage"></div>
+    </div>
+    <div class="ms-step" data-step="7">
+      <div class="ms-q">When did this start?</div>
+      <div class="ms-help">An approximate timeframe is fine.</div>
+      <div class="ms-choices" data-target="timeline"></div>
+    </div>
+    <div class="ms-step" data-step="8" data-input="1">
+      <div class="ms-q">Any upcoming deadlines or court dates?</div>
+      <div class="ms-help">A response deadline, hearing, or filing date — or leave blank if none.</div>
+      <div class="ms-input"><input type="text" name="deadline" id="i_deadline" class="ms-input-el" placeholder="e.g. answer due Aug 1, or ‘not sure’" maxlength="160" autocomplete="off"></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
+    </div>
+    <div class="ms-step" data-step="9">
+      <div class="ms-q">Roughly how much is at stake?</div>
+      <div class="ms-help">A rough range is fine — it helps match the right attorney.</div>
+      <div class="ms-choices" data-target="dispute_value"></div>
+    </div>
+    <div class="ms-step" data-step="10">
+      <div class="ms-q">Where is this dispute based?</div>
+      <div class="ms-help">We connect you with Idaho-licensed attorneys.</div>
+      <div class="ms-choices" data-target="location"></div>
+    </div>
+    <div class="ms-step" data-step="11" data-input="1">
+      <div class="ms-q">Which Idaho county?</div>
+      <div class="ms-help">If your matter is in Idaho, choose the county — otherwise skip.</div>
+      <div class="ms-input"><select name="county" id="i_county" class="ms-input-el"><option value="" selected>Select a county…</option><option value="Ada">Ada</option><option value="Adams">Adams</option><option value="Bannock">Bannock</option><option value="Bear Lake">Bear Lake</option><option value="Benewah">Benewah</option><option value="Bingham">Bingham</option><option value="Blaine">Blaine</option><option value="Boise">Boise</option><option value="Bonner">Bonner</option><option value="Bonneville">Bonneville</option><option value="Boundary">Boundary</option><option value="Butte">Butte</option><option value="Camas">Camas</option><option value="Canyon">Canyon</option><option value="Caribou">Caribou</option><option value="Cassia">Cassia</option><option value="Clark">Clark</option><option value="Clearwater">Clearwater</option><option value="Custer">Custer</option><option value="Elmore">Elmore</option><option value="Franklin">Franklin</option><option value="Fremont">Fremont</option><option value="Gem">Gem</option><option value="Gooding">Gooding</option><option value="Idaho">Idaho</option><option value="Jefferson">Jefferson</option><option value="Jerome">Jerome</option><option value="Kootenai">Kootenai</option><option value="Latah">Latah</option><option value="Lemhi">Lemhi</option><option value="Lewis">Lewis</option><option value="Lincoln">Lincoln</option><option value="Madison">Madison</option><option value="Minidoka">Minidoka</option><option value="Nez Perce">Nez Perce</option><option value="Oneida">Oneida</option><option value="Owyhee">Owyhee</option><option value="Payette">Payette</option><option value="Power">Power</option><option value="Shoshone">Shoshone</option><option value="Teton">Teton</option><option value="Twin Falls">Twin Falls</option><option value="Valley">Valley</option><option value="Washington">Washington</option></select></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
+    </div>
+    <div class="ms-step" data-step="12">
+      <div class="ms-q">Have you spoken with another attorney about this?</div>
+      <div class="ms-choices" data-target="prior_attorney"></div>
+    </div>
+    <div class="ms-step" data-step="13">
+      <div class="ms-q">If an attorney takes your case, are you prepared to retain them?</div>
+      <div class="ms-help">No commitment — this just helps match you with the right attorney.</div>
+      <div class="ms-choices" data-target="retainer_ready"></div>
+    </div>
+    <div class="ms-step" data-step="14" data-input="1">
+      <div class="ms-q">What documents do you have?</div>
+      <div class="ms-help">e.g. the contract, emails, invoices, or court papers. You'll be able to share them securely later.</div>
+      <div class="ms-input"><textarea name="documents" id="i_documents" class="ms-input-el" rows="4" placeholder="List the documents you have available…" maxlength="1000"></textarea></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
+    </div>
+    <div class="ms-step" data-step="15" data-input="1">
+      <div class="ms-q">How did you hear about us?</div>
+      <div class="ms-help">Optional.</div>
+      <div class="ms-input"><input type="text" name="how_heard" id="i_how_heard" class="ms-input-el" placeholder="e.g. Google, a referral, social media" maxlength="160" autocomplete="off"></div>
+      <div class="ms-actions">
+        <button type="button" class="ms-continue" data-next>Continue →</button>
+        <button type="button" class="ms-skip" data-skip>Skip</button>
+      </div>
     </div>
     <button type="button" class="ms-back hide" id="msBack">← Back</button>
   </div>
@@ -391,8 +499,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script>
 (function(){
-  var STEPS = [{"field":"matter_type","options":[{"icon":"📄","label":"Breach of contract","value":"Breach of Contract"},{"icon":"🤝","label":"Partnership / shareholder dispute","value":"Partnership / Shareholder Dispute"},{"icon":"⚠️","label":"Business fraud / misrepresentation","value":"Business Fraud / Misrepresentation"},{"icon":"🔒","label":"Non-compete / trade secret","value":"Non-Compete / Trade Secret"},{"icon":"🏗️","label":"Construction / real estate","value":"Construction / Real Estate"},{"icon":"❓","label":"Other business dispute","value":"Other Business Dispute"}]},{"field":"dispute_value","options":[{"icon":"💵","label":"Under $25,000","value":"Under $25,000"},{"icon":"💰","label":"$25,000 – $100,000","value":"$25,000 – $100,000"},{"icon":"📈","label":"$100,000 – $500,000","value":"$100,000 – $500,000"},{"icon":"🏦","label":"Over $500,000","value":"Over $500,000"},{"icon":"❓","label":"Not sure yet","value":"Not Sure Yet"}]},{"field":"case_stage","options":[{"icon":"🕒","label":"Just exploring my options","value":"Exploring Options"},{"icon":"✉️","label":"Demand letter stage","value":"Demand Letter Stage"},{"icon":"⚖️","label":"A lawsuit is already filed","value":"Lawsuit Filed"},{"icon":"🚨","label":"Urgent — deadline coming up","value":"Urgent — Deadline Soon"}]}];
-  var ANGLES = {"contract":{"title_html":"Breach of Contract<br>\nin Idaho?<br>\n<span class=\"highlight\">Enforce the Deal.</span>","hero_sub":"A signed agreement is a promise the law can enforce. Connect with Idaho business litigation attorneys for a free, confidential review of your contract dispute.","head":"Free Contract Dispute Review","sub":"3 quick questions. About 60 seconds. Free and confidential.","reassure":"Tell us how to reach you and an Idaho attorney will review your contract dispute — free, no obligation."},"partnership":{"title_html":"Partnership Dispute<br>\n<span class=\"highlight\">Threatening Your Business?</span>","hero_sub":"Partner and shareholder fights can put everything you built at risk. Connect with Idaho business litigation attorneys for a free, confidential review.","head":"Free Partnership Dispute Review","sub":"3 quick questions. About 60 seconds. Free and confidential.","reassure":"Tell us how to reach you and an Idaho attorney will review your partnership dispute — free, no obligation."},"fraud":{"title_html":"Defrauded in<br>\nBusiness?<br>\n<span class=\"highlight\">Recover What You're Owed.</span>","hero_sub":"If a deal was built on lies, Idaho law may let you recover. Connect with business litigation attorneys for a free, confidential review of your fraud claim.","head":"Free Business Fraud Review","sub":"3 quick questions. About 60 seconds. Free and confidential.","reassure":"Tell us how to reach you and an Idaho attorney will review your fraud claim — free, no obligation."}};
+  var STEPS = [{"field":"matter_type","options":[{"icon":"📄","label":"Breach of contract","value":"Breach of Contract"},{"icon":"🤝","label":"Partnership / shareholder dispute","value":"Partnership / Shareholder Dispute"},{"icon":"⚠️","label":"Business fraud / misrepresentation","value":"Business Fraud / Misrepresentation"},{"icon":"🔒","label":"Non-compete / trade secret","value":"Non-Compete / Trade Secret"},{"icon":"💵","label":"Collections / unpaid accounts","value":"Collections / Unpaid Accounts"},{"icon":"🏗️","label":"Construction / real estate","value":"Construction / Real Estate"},{"icon":"❓","label":"Other business dispute","value":"Other Business Dispute"}]},{"field":"urgency","options":[{"icon":"🚨","label":"Immediate — within 7 days","value":"Immediate (within 7 days)"},{"icon":"⏱️","label":"Soon — within 30 days","value":"Soon (within 30 days)"},{"icon":"🌿","label":"Not urgent","value":"Not Urgent"}]},{"field":"case_stage","options":[{"icon":"🕒","label":"Just exploring my options","value":"Exploring Options"},{"icon":"✉️","label":"Demand letter stage","value":"Demand Letter Stage"},{"icon":"💬","label":"Negotiations ongoing","value":"Negotiations Ongoing"},{"icon":"⚖️","label":"A lawsuit has been filed","value":"Lawsuit Filed"},{"icon":"🛡️","label":"I've been sued","value":"I've Been Sued"}]},{"field":"timeline","options":[{"icon":"📅","label":"Within the last 30 days","value":"Within 30 Days"},{"icon":"📆","label":"1–6 months ago","value":"1–6 Months Ago"},{"icon":"🗓️","label":"6–12 months ago","value":"6–12 Months Ago"},{"icon":"⏳","label":"Over a year ago","value":"Over a Year Ago"}]},{"field":"dispute_value","options":[{"icon":"💵","label":"Under $25,000","value":"Under $25,000"},{"icon":"💰","label":"$25,000 – $100,000","value":"$25,000 – $100,000"},{"icon":"📈","label":"$100,000 – $500,000","value":"$100,000 – $500,000"},{"icon":"🏦","label":"Over $500,000","value":"Over $500,000"},{"icon":"❓","label":"Not sure yet","value":"Not Sure Yet"}]},{"field":"location","options":[{"icon":"🏔️","label":"In Idaho","value":"Idaho"},{"icon":"🗺️","label":"Another state","value":"Another State"}]},{"field":"prior_attorney","options":[{"icon":"🚫","label":"No","value":"No"},{"icon":"💬","label":"Yes — had a consultation","value":"Yes — Consulted"},{"icon":"🤝","label":"Yes — currently working with one","value":"Yes — Currently Working With One"}]},{"field":"retainer_ready","options":[{"icon":"✅","label":"Yes","value":"Yes"},{"icon":"🤔","label":"Not sure yet","value":"Not Sure"},{"icon":"❌","label":"No","value":"No"}]}];
+  var ANGLES = {"contract":{"title_html":"Breach of Contract<br>\nin Idaho?<br>\n<span class=\"highlight\">Enforce the Deal.</span>","hero_sub":"A signed agreement is a promise the law can enforce. Connect with Idaho business litigation attorneys for a free, confidential review of your contract dispute.","head":"Free Contract Dispute Review","sub":"Free, confidential, and reviewed by an Idaho attorney.","reassure":"Tell us how to reach you and an Idaho attorney will review your contract dispute — free, no obligation."},"partnership":{"title_html":"Partnership Dispute<br>\n<span class=\"highlight\">Threatening Your Business?</span>","hero_sub":"Partner and shareholder fights can put everything you built at risk. Connect with Idaho business litigation attorneys for a free, confidential review.","head":"Free Partnership Dispute Review","sub":"Free, confidential, and reviewed by an Idaho attorney.","reassure":"Tell us how to reach you and an Idaho attorney will review your partnership dispute — free, no obligation."},"fraud":{"title_html":"Defrauded in<br>\nBusiness?<br>\n<span class=\"highlight\">Recover What You're Owed.</span>","hero_sub":"If a deal was built on lies, Idaho law may let you recover. Connect with business litigation attorneys for a free, confidential review of your fraud claim.","head":"Free Business Fraud Review","sub":"Free, confidential, and reviewed by an Idaho attorney.","reassure":"Tell us how to reach you and an Idaho attorney will review your fraud claim — free, no obligation."}};
   var SITE = "idahobusinesslitigation.com";
   var ENGINE = "https://procure-lead-engine.dan-fda.workers.dev";
   var sid = 'pm-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
@@ -427,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
     steps.forEach(function(s,i){ s.classList.toggle('active', i===cur); });
     if(bar) bar.style.width=Math.round(((cur+1)/total)*100)+'%';
     if(label) label.textContent='Step '+(cur+1)+' of '+total;
-    if(hint) hint.textContent=hints[Math.min(cur,hints.length-1)]||'';
+    if(hint){ var _pr=(cur+1)/total; hint.textContent = _pr<0.34?'Quick & easy':_pr<0.67?'Making progress':_pr<0.9?'Almost done':'Last step'; }
     if(back) back.classList.toggle('hide', cur===0);
     ping();
   }
@@ -435,6 +543,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function prev(){ if(cur>0){ cur--; render(); } }
   if(back) back.addEventListener('click', prev);
 
+  // Continue / Skip for input steps (text / textarea / select)
+  Array.prototype.forEach.call(document.querySelectorAll('.ms-continue'), function(btn){
+    btn.addEventListener('click', function(){
+      var panel=btn.closest('.ms-step'); var inv=panel&&panel.querySelector(':invalid');
+      if(inv){ if(inv.reportValidity) inv.reportValidity(); return; }
+      next();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.ms-skip'), function(btn){
+    btn.addEventListener('click', function(){ next(); });
+  });
   function ping(){
     reached = Math.max(reached, cur+1);
     try{
@@ -467,6 +586,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+
+  var BANKED=false, LEAD_ID=null, ETOKEN=null, DEST=null;
+  function _allFields(){ var o={}; Array.prototype.forEach.call(form.querySelectorAll('[name]'), function(el){ if((el.type==='radio'||el.type==='checkbox')&&!el.checked) return; if(el.type==='hidden'&&el.name.charAt(0)==='_') return; var n=el.name; if(n&&(el.value||'').toString().trim()) o[n]=el.value; }); return o; }
+  function _bank(){ var body=new URLSearchParams(_allFields()); body.set('_xhr','1'); return fetch(ENGINE+'/submit',{method:'POST',body:body}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.lead_id){ BANKED=true; LEAD_ID=j.lead_id; ETOKEN=j.enrich_token||''; DEST=j.redirect||''; } }).catch(function(){}); }
+  function _finalize(){ var dest=DEST||((form.querySelector('[name=_redirect]')||{}).value)||'/thank-you'; if(BANKED){ var b=new URLSearchParams(_allFields()); b.set('lead_id',LEAD_ID); b.set('enrich_token',ETOKEN); fetch(ENGINE+'/enrich',{method:'POST',body:b}).catch(function(){}).then(function(){ window.location.href=dest; }); } else { if(form.requestSubmit) form.requestSubmit(); else form.submit(); } }
+  (function(){ var last=steps[steps.length-1]; if(!last) return; var fin=document.createElement('button'); fin.type='button'; fin.className='ms-continue ms-finish'; fin.textContent='Finish & Submit →'; fin.addEventListener('click', _finalize); var acts=last.querySelector('.ms-actions'); if(acts){ acts.innerHTML=''; acts.appendChild(fin); } else { var w=document.createElement('div'); w.className='ms-actions'; w.appendChild(fin); last.appendChild(w); } })();
+  var _contact=document.querySelector('.ms-step[data-contact]');
+  form.addEventListener('submit', function(e){ if(_contact&&steps[cur]===_contact){ e.preventDefault(); if(!BANKED){ var inv=_contact.querySelector(':invalid'); if(inv){ if(inv.reportValidity) inv.reportValidity(); return; } _bank().then(function(){ next(); }); } else { next(); } } }, true);
 
   render();
 })();
